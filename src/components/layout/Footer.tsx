@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   const footerLinks = {
     product: [
-      { name: "Overview", path: "/" },
-      { name: "Features", path: "/#features" },
+      { name: t("footer.overview"), path: "/" },
+      { name: t("footer.features"), path: "/#features" },
     ],
     legal: [
-      { name: "Terms", path: "/terms" },
-      { name: "Privacy", path: "/privacy" },
+      { name: t("footer.terms"), path: "/terms" },
+      { name: t("footer.privacy"), path: "/privacy" },
     ],
     support: [
-      { name: "Get Help", path: "/support" },
-      { name: "FAQ", path: "/support#faq" },
-      { name: "Contact", path: "/support#contact" },
+      { name: t("footer.getHelp"), path: "/support" },
+      { name: t("footer.faq"), path: "/support#faq" },
+      { name: t("footer.contact"), path: "/support#contact" },
     ],
   };
 
@@ -32,7 +35,7 @@ const Footer = () => {
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Product</h4>
+            <h4 className="font-semibold text-foreground mb-4">{t("footer.product")}</h4>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
@@ -49,7 +52,7 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Legal</h4>
+            <h4 className="font-semibold text-foreground mb-4">{t("footer.legal")}</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
@@ -66,7 +69,7 @@ const Footer = () => {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Support</h4>
+            <h4 className="font-semibold text-foreground mb-4">{t("footer.support")}</h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -85,12 +88,12 @@ const Footer = () => {
         {/* Google Trademark Disclaimer */}
         <div className="border-t border-border pt-8">
           <p className="text-xs text-muted-foreground text-center max-w-2xl mx-auto">
-            Google Sheets™ and Google Drive™ are trademarks of Google LLC.
+            {t("footer.trademark")}
             <br />
-            Menu Mega Tool is not affiliated with, endorsed by, or sponsored by Google LLC.
+            {t("footer.disclaimer")}
           </p>
           <p className="text-xs text-muted-foreground text-center mt-4">
-            © {new Date().getFullYear()} Menu Mega Tool. All rights reserved.
+            © {new Date().getFullYear()} Menu Mega Tool. {t("footer.rights")}
           </p>
         </div>
       </div>

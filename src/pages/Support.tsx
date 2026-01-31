@@ -7,35 +7,38 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    question: "How do I install Menu Mega Tool?",
-    answer: "You can install Menu Mega Tool from the Google Workspace™ Marketplace. Simply search for 'Menu Mega Tool' in the marketplace, click 'Install,' and follow the authorization prompts. Once installed, you can access it from the 'Extensions' menu in Google Sheets™.",
-  },
-  {
-    question: "What file types can I upload and preview?",
-    answer: "Menu Mega Tool supports a wide variety of file types including images (JPG, PNG, GIF, WebP), documents (PDF, DOC, DOCX), spreadsheets, presentations, and more. Preview functionality is available for most common file formats. All files are stored in your Google Drive™.",
-  },
-  {
-    question: "Is my data secure?",
-    answer: "Yes, your data remains completely secure. Menu Mega Tool does not store any of your files or data on external servers. All files stay in your Google Drive™, and all spreadsheet data remains in Google Sheets™. We only access the specific files and cells you choose to work with.",
-  },
-  {
-    question: "Can I use Menu Mega Tool with shared spreadsheets?",
-    answer: "Yes, Menu Mega Tool works with shared spreadsheets. Each collaborator who wants to use the add-on features will need to install it individually. File access permissions follow your existing Google Drive™ sharing settings.",
-  },
-  {
-    question: "How do I uninstall Menu Mega Tool?",
-    answer: "To uninstall, go to Google Sheets™, click on 'Extensions' > 'Add-ons' > 'Manage add-ons,' find Menu Mega Tool, click the three-dot menu, and select 'Uninstall.' You can also revoke access from your Google Account security settings.",
-  },
-  {
-    question: "Is there a limit to how many files I can attach?",
-    answer: "Menu Mega Tool does not impose limits on file attachments. However, your Google Drive™ storage quota applies to all uploaded files. Each file is stored in your Drive™, so ensure you have sufficient storage space available.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Support = () => {
+  const { t } = useLanguage();
+
+  const faqs = [
+    {
+      question: t("supportPage.faq.q1"),
+      answer: t("supportPage.faq.a1"),
+    },
+    {
+      question: t("supportPage.faq.q2"),
+      answer: t("supportPage.faq.a2"),
+    },
+    {
+      question: t("supportPage.faq.q3"),
+      answer: t("supportPage.faq.a3"),
+    },
+    {
+      question: t("supportPage.faq.q4"),
+      answer: t("supportPage.faq.a4"),
+    },
+    {
+      question: t("supportPage.faq.q5"),
+      answer: t("supportPage.faq.a5"),
+    },
+    {
+      question: t("supportPage.faq.q6"),
+      answer: t("supportPage.faq.a6"),
+    },
+  ];
+
   return (
     <Layout>
       <div className="py-16">
@@ -45,20 +48,20 @@ const Support = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold text-foreground mb-4">Support</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-4">{t("supportPage.title")}</h1>
             <p className="text-muted-foreground mb-12">
-              Need help with Menu Mega Tool? We're here to assist you.
+              {t("supportPage.subtitle")}
             </p>
 
             {/* Contact Section */}
             <section id="contact" className="mb-16">
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Contact Us</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-6">{t("supportPage.contact.title")}</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-card border border-border rounded-2xl p-6 card-shadow">
                   <Mail className="h-8 w-8 text-foreground mb-4" strokeWidth={1.5} />
-                  <h3 className="font-semibold text-foreground mb-2">Email Support</h3>
+                  <h3 className="font-semibold text-foreground mb-2">{t("supportPage.email.title")}</h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Send us an email and we'll respond within 24-48 hours.
+                    {t("supportPage.email.desc")}
                   </p>
                   <a
                     href="mailto:support@menumegatool.com"
@@ -70,15 +73,15 @@ const Support = () => {
 
                 <div className="bg-card border border-border rounded-2xl p-6 card-shadow">
                   <MessageCircle className="h-8 w-8 text-foreground mb-4" strokeWidth={1.5} />
-                  <h3 className="font-semibold text-foreground mb-2">Report an Issue</h3>
+                  <h3 className="font-semibold text-foreground mb-2">{t("supportPage.report.title")}</h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Found a bug or experiencing technical issues? Let us know.
+                    {t("supportPage.report.desc")}
                   </p>
                   <a
                     href="mailto:support@menumegatool.com?subject=Bug Report"
                     className="text-foreground font-medium underline"
                   >
-                    Report a bug
+                    {t("supportPage.report.link")}
                   </a>
                 </div>
               </div>
@@ -86,28 +89,28 @@ const Support = () => {
 
             {/* How to Get Help */}
             <section className="mb-16">
-              <h2 className="text-2xl font-semibold text-foreground mb-6">How to Get Help</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-6">{t("supportPage.howTo.title")}</h2>
               <div className="bg-secondary/50 rounded-2xl p-6">
                 <ol className="space-y-4">
                   <li className="flex items-start gap-4">
                     <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm flex-shrink-0">1</span>
                     <div>
-                      <h4 className="font-semibold text-foreground">Check the FAQ</h4>
-                      <p className="text-muted-foreground text-sm">Many common questions are answered in our FAQ section below.</p>
+                      <h4 className="font-semibold text-foreground">{t("supportPage.howTo.step1.title")}</h4>
+                      <p className="text-muted-foreground text-sm">{t("supportPage.howTo.step1.desc")}</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
                     <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm flex-shrink-0">2</span>
                     <div>
-                      <h4 className="font-semibold text-foreground">Describe your issue clearly</h4>
-                      <p className="text-muted-foreground text-sm">Include details like what you were trying to do, any error messages, and your browser/device.</p>
+                      <h4 className="font-semibold text-foreground">{t("supportPage.howTo.step2.title")}</h4>
+                      <p className="text-muted-foreground text-sm">{t("supportPage.howTo.step2.desc")}</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
                     <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm flex-shrink-0">3</span>
                     <div>
-                      <h4 className="font-semibold text-foreground">Contact us via email</h4>
-                      <p className="text-muted-foreground text-sm">Send your question or issue to support@menumegatool.com and we'll help you promptly.</p>
+                      <h4 className="font-semibold text-foreground">{t("supportPage.howTo.step3.title")}</h4>
+                      <p className="text-muted-foreground text-sm">{t("supportPage.howTo.step3.desc")}</p>
                     </div>
                   </li>
                 </ol>
@@ -118,7 +121,7 @@ const Support = () => {
             <section id="faq">
               <div className="flex items-center gap-3 mb-6">
                 <HelpCircle className="h-6 w-6 text-foreground" strokeWidth={1.5} />
-                <h2 className="text-2xl font-semibold text-foreground">Frequently Asked Questions</h2>
+                <h2 className="text-2xl font-semibold text-foreground">{t("supportPage.faq.title")}</h2>
               </div>
 
               <Accordion type="single" collapsible className="w-full">

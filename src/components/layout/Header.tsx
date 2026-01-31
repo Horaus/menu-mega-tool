@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Header = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Features", path: "/#features" },
-    { name: "Support", path: "/support" },
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.features"), path: "/#features" },
+    { name: t("nav.support"), path: "/support" },
   ];
 
   const isActive = (path: string) => {
@@ -47,15 +50,18 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <Link
-            to="https://workspace.google.com/marketplace"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
-          >
-            Get Started
-          </Link>
+          {/* Right side: Language Switcher + CTA */}
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            <Link
+              to="https://workspace.google.com/marketplace"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              {t("nav.getStarted")}
+            </Link>
+          </div>
         </div>
       </div>
     </motion.header>
