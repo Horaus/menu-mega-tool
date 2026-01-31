@@ -1,0 +1,388 @@
+import { createContext, useContext, useState, ReactNode } from "react";
+
+type Language = "en" | "vi";
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const translations: Record<Language, Record<string, string>> = {
+  en: {
+    // Header
+    "nav.home": "Home",
+    "nav.features": "Features",
+    "nav.support": "Support",
+    "nav.getStarted": "Get Started",
+
+    // Hero
+    "hero.title": "Menu Mega Tool",
+    "hero.subtitle": "Google Sheets™ file uploads, previews, and Drive™ sync.",
+    "hero.cta": "Start Now",
+
+    // Features
+    "features.upload.title": "Instant upload",
+    "features.upload.desc": "Upload files directly from your computer to Google Drive™ and attach them to any cell in Google Sheets™.",
+    "features.preview.title": "Sheets preview",
+    "features.preview.desc": "Preview attached files without leaving Google Sheets™. View images, PDFs, and documents inline.",
+    "features.drive.title": "Drive managed",
+    "features.drive.desc": "All your files stay organized in your Google Drive™. No external storage, no data transfers.",
+    "features.workflow.title": "Easy workflow",
+    "features.workflow.desc": "Simple, intuitive interface that integrates seamlessly with your existing Google Workspace™ workflow.",
+
+    // How it works
+    "howItWorks.title": "Menu Mega Tool speeds up your Sheets workflow.",
+    "howItWorks.desc": "Upload, view, and manage Google Drive™ files directly inside Google Sheets™. Attach files to cells, preview documents inline, and keep everything organized in your existing Drive™ structure.",
+    "howItWorks.step1.title": "Select a cell",
+    "howItWorks.step1.desc": "Click on any cell where you want to attach a file.",
+    "howItWorks.step2.title": "Upload or select",
+    "howItWorks.step2.desc": "Upload a new file or choose from your Google Drive™.",
+    "howItWorks.step3.title": "Preview & manage",
+    "howItWorks.step3.desc": "View, download, or replace files directly in Sheets™.",
+
+    // Data Privacy
+    "privacy.title": "Data usage & privacy",
+    "privacy.desc": "Menu Mega Tool is built with privacy at its core. We follow Google's API Services User Data Policy and only access what's necessary.",
+    "privacy.yours.title": "Your data stays yours",
+    "privacy.yours.desc": "All files remain in your Google Drive™. We never store your data on external servers.",
+    "privacy.noSell.title": "No data selling",
+    "privacy.noSell.desc": "We never sell, share, or transfer your data to third parties. Your privacy is paramount.",
+    "privacy.minimal.title": "Minimal access",
+    "privacy.minimal.desc": "We only access the specific files and sheets you choose to work with. Nothing more.",
+
+    // CTA
+    "cta.title": "Try Menu Mega Tool.",
+    "cta.subtitle": "Upload your first file.",
+    "cta.button": "Get now",
+
+    // Footer
+    "footer.product": "Product",
+    "footer.overview": "Overview",
+    "footer.features": "Features",
+    "footer.legal": "Legal",
+    "footer.terms": "Terms",
+    "footer.privacy": "Privacy",
+    "footer.support": "Support",
+    "footer.getHelp": "Get Help",
+    "footer.faq": "FAQ",
+    "footer.contact": "Contact",
+    "footer.trademark": "Google Sheets™ and Google Drive™ are trademarks of Google LLC.",
+    "footer.disclaimer": "Menu Mega Tool is not affiliated with, endorsed by, or sponsored by Google LLC.",
+    "footer.rights": "All rights reserved.",
+
+    // Privacy Page
+    "privacyPage.title": "Privacy Policy",
+    "privacyPage.lastUpdated": "Last updated:",
+    "privacyPage.intro.title": "Introduction",
+    "privacyPage.intro.p1": "Menu Mega Tool (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our Google Workspace™ add-on.",
+    "privacyPage.intro.p2": "Menu Mega Tool only accesses user data to provide its core functionality and complies with Google API Services User Data Policy.",
+    "privacyPage.access.title": "What Data We Access",
+    "privacyPage.access.intro": "To provide our services, Menu Mega Tool accesses the following data:",
+    "privacyPage.access.sheets": "Google Sheets™ data:",
+    "privacyPage.access.sheetsDesc": "The specific spreadsheet and cells where you choose to attach files.",
+    "privacyPage.access.drive": "Google Drive™ files:",
+    "privacyPage.access.driveDesc": "Only the files you explicitly select to upload, attach, or preview.",
+    "privacyPage.access.account": "Basic account information:",
+    "privacyPage.access.accountDesc": "Your email address to identify your account within the add-on.",
+    "privacyPage.use.title": "How We Use Your Data",
+    "privacyPage.use.intro": "We use the accessed data solely to:",
+    "privacyPage.use.item1": "Upload files to your Google Drive™ on your behalf",
+    "privacyPage.use.item2": "Attach file references to cells in Google Sheets™",
+    "privacyPage.use.item3": "Display previews of attached files within Google Sheets™",
+    "privacyPage.use.item4": "Enable file management (viewing, replacing, downloading) within the add-on interface",
+    "privacyPage.storage.title": "Data Storage & Security",
+    "privacyPage.storage.p1": "We do NOT store your data on external servers.",
+    "privacyPage.storage.p1Cont": "All your files remain in your Google Drive™, and all spreadsheet data stays in Google Sheets™. Menu Mega Tool operates entirely within the Google Workspace™ ecosystem.",
+    "privacyPage.storage.p2": "We do not maintain our own databases of user files or personal data. Any processing happens in real-time during your active use of the add-on.",
+    "privacyPage.sharing.title": "Data Sharing",
+    "privacyPage.sharing.p1": "We do NOT sell, share, or transfer your data to third parties.",
+    "privacyPage.sharing.p2": "Your data is accessed only to provide the core functionality of Menu Mega Tool. We do not share your information with advertisers, data brokers, or any other external entities.",
+    "privacyPage.rights.title": "Your Rights",
+    "privacyPage.rights.intro": "You can revoke Menu Mega Tool's access to your data at any time by:",
+    "privacyPage.rights.item1": "Uninstalling the add-on from Google Sheets™",
+    "privacyPage.rights.item2": "Revoking access through your Google Account security settings",
+    "privacyPage.rights.outro": "Since we don't store your data externally, revoking access immediately stops all data processing.",
+    "privacyPage.changes.title": "Changes to This Policy",
+    "privacyPage.changes.p1": "We may update this Privacy Policy from time to time. We will notify users of any material changes by updating the \"Last updated\" date at the top of this page.",
+    "privacyPage.contact.title": "Contact Us",
+    "privacyPage.contact.p1": "If you have any questions about this Privacy Policy or our data practices, please contact us at:",
+
+    // Terms Page
+    "termsPage.title": "Terms of Service",
+    "termsPage.lastUpdated": "Last updated:",
+    "termsPage.acceptance.title": "1. Acceptance of Terms",
+    "termsPage.acceptance.p1": "By installing or using Menu Mega Tool (\"the Add-on\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the Add-on.",
+    "termsPage.description.title": "2. Description of Service",
+    "termsPage.description.p1": "Menu Mega Tool is a Google Workspace™ add-on that enables users to upload, attach, preview, and manage files directly within Google Sheets™, utilizing Google Drive™ for file storage. The Add-on operates entirely within the Google Workspace™ ecosystem.",
+    "termsPage.acceptable.title": "3. Acceptable Use",
+    "termsPage.acceptable.intro": "You agree to use Menu Mega Tool only for lawful purposes and in accordance with these Terms. You agree NOT to:",
+    "termsPage.acceptable.item1": "Use the Add-on for any illegal or unauthorized purpose",
+    "termsPage.acceptable.item2": "Attempt to reverse engineer, decompile, or disassemble the Add-on",
+    "termsPage.acceptable.item3": "Use the Add-on to store or transmit malicious code or files",
+    "termsPage.acceptable.item4": "Interfere with or disrupt the integrity or performance of the Add-on",
+    "termsPage.acceptable.item5": "Attempt to gain unauthorized access to any systems or networks",
+    "termsPage.acceptable.item6": "Use automated scripts or bots to access or interact with the Add-on",
+    "termsPage.acceptable.item7": "Violate Google's Terms of Service or Google Workspace™ policies",
+    "termsPage.responsibilities.title": "4. User Responsibilities",
+    "termsPage.responsibilities.intro": "You are responsible for:",
+    "termsPage.responsibilities.item1": "Maintaining the security of your Google Account",
+    "termsPage.responsibilities.item2": "All activities that occur under your account",
+    "termsPage.responsibilities.item3": "Ensuring you have the right to upload and share any files through the Add-on",
+    "termsPage.responsibilities.item4": "Complying with all applicable laws and regulations",
+    "termsPage.ip.title": "5. Intellectual Property",
+    "termsPage.ip.p1": "The Add-on, including its code, design, and functionality, is owned by Menu Mega Tool and is protected by applicable intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to use the Add-on in accordance with these Terms.",
+    "termsPage.warranty.title": "6. Disclaimer of Warranties",
+    "termsPage.warranty.intro": "THE ADD-ON IS PROVIDED \"AS IS\" AND \"AS AVAILABLE\" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:",
+    "termsPage.warranty.item1": "Implied warranties of merchantability",
+    "termsPage.warranty.item2": "Fitness for a particular purpose",
+    "termsPage.warranty.item3": "Non-infringement",
+    "termsPage.warranty.item4": "Accuracy, reliability, or completeness of content",
+    "termsPage.warranty.outro": "We do not warrant that the Add-on will be uninterrupted, error-free, or free of viruses or other harmful components.",
+    "termsPage.liability.title": "7. Limitation of Liability",
+    "termsPage.liability.p1": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, MENU MEGA TOOL SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, USE, OR GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE ADD-ON, REGARDLESS OF WHETHER SUCH DAMAGES WERE FORESEEABLE OR WHETHER WE WERE ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.",
+    "termsPage.termination.title": "8. Termination",
+    "termsPage.termination.intro": "We reserve the right to terminate or suspend your access to the Add-on immediately, without prior notice or liability, for any reason, including but not limited to:",
+    "termsPage.termination.item1": "Breach of these Terms",
+    "termsPage.termination.item2": "Violation of applicable laws",
+    "termsPage.termination.item3": "Conduct that we determine to be harmful to other users or the Add-on",
+    "termsPage.termination.item4": "Abuse of the service or its features",
+    "termsPage.termination.outro": "Upon termination, your right to use the Add-on will immediately cease.",
+    "termsPage.changes.title": "9. Changes to Terms",
+    "termsPage.changes.p1": "We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the Add-on after any changes indicates your acceptance of the modified Terms.",
+    "termsPage.law.title": "10. Governing Law",
+    "termsPage.law.p1": "These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflicts of law principles. Any disputes arising from these Terms or your use of the Add-on shall be resolved through good faith negotiation between the parties.",
+    "termsPage.contact.title": "11. Contact Us",
+    "termsPage.contact.p1": "If you have any questions about these Terms, please contact us at:",
+
+    // Support Page
+    "supportPage.title": "Support",
+    "supportPage.subtitle": "Need help with Menu Mega Tool? We're here to assist you.",
+    "supportPage.contact.title": "Contact Us",
+    "supportPage.email.title": "Email Support",
+    "supportPage.email.desc": "Send us an email and we'll respond within 24-48 hours.",
+    "supportPage.report.title": "Report an Issue",
+    "supportPage.report.desc": "Found a bug or experiencing technical issues? Let us know.",
+    "supportPage.report.link": "Report a bug",
+    "supportPage.howTo.title": "How to Get Help",
+    "supportPage.howTo.step1.title": "Check the FAQ",
+    "supportPage.howTo.step1.desc": "Many common questions are answered in our FAQ section below.",
+    "supportPage.howTo.step2.title": "Describe your issue clearly",
+    "supportPage.howTo.step2.desc": "Include details like what you were trying to do, any error messages, and your browser/device.",
+    "supportPage.howTo.step3.title": "Contact us via email",
+    "supportPage.howTo.step3.desc": "Send your question or issue to support@menumegatool.com and we'll help you promptly.",
+    "supportPage.faq.title": "Frequently Asked Questions",
+    "supportPage.faq.q1": "How do I install Menu Mega Tool?",
+    "supportPage.faq.a1": "You can install Menu Mega Tool from the Google Workspace™ Marketplace. Simply search for 'Menu Mega Tool' in the marketplace, click 'Install,' and follow the authorization prompts. Once installed, you can access it from the 'Extensions' menu in Google Sheets™.",
+    "supportPage.faq.q2": "What file types can I upload and preview?",
+    "supportPage.faq.a2": "Menu Mega Tool supports a wide variety of file types including images (JPG, PNG, GIF, WebP), documents (PDF, DOC, DOCX), spreadsheets, presentations, and more. Preview functionality is available for most common file formats. All files are stored in your Google Drive™.",
+    "supportPage.faq.q3": "Is my data secure?",
+    "supportPage.faq.a3": "Yes, your data remains completely secure. Menu Mega Tool does not store any of your files or data on external servers. All files stay in your Google Drive™, and all spreadsheet data remains in Google Sheets™. We only access the specific files and cells you choose to work with.",
+    "supportPage.faq.q4": "Can I use Menu Mega Tool with shared spreadsheets?",
+    "supportPage.faq.a4": "Yes, Menu Mega Tool works with shared spreadsheets. Each collaborator who wants to use the add-on features will need to install it individually. File access permissions follow your existing Google Drive™ sharing settings.",
+    "supportPage.faq.q5": "How do I uninstall Menu Mega Tool?",
+    "supportPage.faq.a5": "To uninstall, go to Google Sheets™, click on 'Extensions' > 'Add-ons' > 'Manage add-ons,' find Menu Mega Tool, click the three-dot menu, and select 'Uninstall.' You can also revoke access from your Google Account security settings.",
+    "supportPage.faq.q6": "Is there a limit to how many files I can attach?",
+    "supportPage.faq.a6": "Menu Mega Tool does not impose limits on file attachments. However, your Google Drive™ storage quota applies to all uploaded files. Each file is stored in your Drive™, so ensure you have sufficient storage space available.",
+  },
+  vi: {
+    // Header
+    "nav.home": "Trang chủ",
+    "nav.features": "Tính năng",
+    "nav.support": "Hỗ trợ",
+    "nav.getStarted": "Bắt đầu",
+
+    // Hero
+    "hero.title": "Menu Mega Tool",
+    "hero.subtitle": "Tải lên, xem trước và đồng bộ tệp trong Google Sheets™ với Drive™.",
+    "hero.cta": "Bắt đầu ngay",
+
+    // Features
+    "features.upload.title": "Tải lên nhanh chóng",
+    "features.upload.desc": "Tải tệp trực tiếp từ máy tính lên Google Drive™ và đính kèm vào bất kỳ ô nào trong Google Sheets™.",
+    "features.preview.title": "Xem trước trong Sheets",
+    "features.preview.desc": "Xem trước các tệp đính kèm ngay trong Google Sheets™. Xem hình ảnh, PDF và tài liệu trực tiếp.",
+    "features.drive.title": "Quản lý Drive",
+    "features.drive.desc": "Tất cả tệp của bạn được tổ chức trong Google Drive™. Không lưu trữ bên ngoài, không chuyển dữ liệu.",
+    "features.workflow.title": "Quy trình dễ dàng",
+    "features.workflow.desc": "Giao diện đơn giản, trực quan, tích hợp liền mạch với quy trình Google Workspace™ hiện có của bạn.",
+
+    // How it works
+    "howItWorks.title": "Menu Mega Tool tăng tốc quy trình làm việc với Sheets.",
+    "howItWorks.desc": "Tải lên, xem và quản lý tệp Google Drive™ trực tiếp trong Google Sheets™. Đính kèm tệp vào ô, xem trước tài liệu và giữ mọi thứ có tổ chức trong cấu trúc Drive™ hiện có.",
+    "howItWorks.step1.title": "Chọn một ô",
+    "howItWorks.step1.desc": "Nhấp vào bất kỳ ô nào bạn muốn đính kèm tệp.",
+    "howItWorks.step2.title": "Tải lên hoặc chọn",
+    "howItWorks.step2.desc": "Tải lên tệp mới hoặc chọn từ Google Drive™ của bạn.",
+    "howItWorks.step3.title": "Xem trước & quản lý",
+    "howItWorks.step3.desc": "Xem, tải xuống hoặc thay thế tệp trực tiếp trong Sheets™.",
+
+    // Data Privacy
+    "privacy.title": "Sử dụng dữ liệu & quyền riêng tư",
+    "privacy.desc": "Menu Mega Tool được xây dựng với quyền riêng tư làm cốt lõi. Chúng tôi tuân theo Chính sách Dữ liệu Người dùng của Google API và chỉ truy cập những gì cần thiết.",
+    "privacy.yours.title": "Dữ liệu của bạn thuộc về bạn",
+    "privacy.yours.desc": "Tất cả tệp vẫn nằm trong Google Drive™ của bạn. Chúng tôi không bao giờ lưu trữ dữ liệu trên máy chủ bên ngoài.",
+    "privacy.noSell.title": "Không bán dữ liệu",
+    "privacy.noSell.desc": "Chúng tôi không bao giờ bán, chia sẻ hoặc chuyển dữ liệu của bạn cho bên thứ ba. Quyền riêng tư của bạn là tối quan trọng.",
+    "privacy.minimal.title": "Truy cập tối thiểu",
+    "privacy.minimal.desc": "Chúng tôi chỉ truy cập các tệp và bảng tính cụ thể mà bạn chọn làm việc. Không gì khác.",
+
+    // CTA
+    "cta.title": "Thử Menu Mega Tool.",
+    "cta.subtitle": "Tải lên tệp đầu tiên của bạn.",
+    "cta.button": "Nhận ngay",
+
+    // Footer
+    "footer.product": "Sản phẩm",
+    "footer.overview": "Tổng quan",
+    "footer.features": "Tính năng",
+    "footer.legal": "Pháp lý",
+    "footer.terms": "Điều khoản",
+    "footer.privacy": "Quyền riêng tư",
+    "footer.support": "Hỗ trợ",
+    "footer.getHelp": "Nhận trợ giúp",
+    "footer.faq": "Câu hỏi thường gặp",
+    "footer.contact": "Liên hệ",
+    "footer.trademark": "Google Sheets™ và Google Drive™ là thương hiệu của Google LLC.",
+    "footer.disclaimer": "Menu Mega Tool không liên kết, được chứng thực hoặc tài trợ bởi Google LLC.",
+    "footer.rights": "Bảo lưu mọi quyền.",
+
+    // Privacy Page
+    "privacyPage.title": "Chính sách Quyền riêng tư",
+    "privacyPage.lastUpdated": "Cập nhật lần cuối:",
+    "privacyPage.intro.title": "Giới thiệu",
+    "privacyPage.intro.p1": "Menu Mega Tool (\"chúng tôi\") cam kết bảo vệ quyền riêng tư của bạn. Chính sách Quyền riêng tư này giải thích cách chúng tôi xử lý thông tin của bạn khi bạn sử dụng tiện ích bổ sung Google Workspace™ của chúng tôi.",
+    "privacyPage.intro.p2": "Menu Mega Tool chỉ truy cập dữ liệu người dùng để cung cấp chức năng cốt lõi và tuân thủ Chính sách Dữ liệu Người dùng của Dịch vụ API Google.",
+    "privacyPage.access.title": "Dữ liệu chúng tôi truy cập",
+    "privacyPage.access.intro": "Để cung cấp dịch vụ, Menu Mega Tool truy cập các dữ liệu sau:",
+    "privacyPage.access.sheets": "Dữ liệu Google Sheets™:",
+    "privacyPage.access.sheetsDesc": "Bảng tính và ô cụ thể mà bạn chọn để đính kèm tệp.",
+    "privacyPage.access.drive": "Tệp Google Drive™:",
+    "privacyPage.access.driveDesc": "Chỉ các tệp bạn chọn rõ ràng để tải lên, đính kèm hoặc xem trước.",
+    "privacyPage.access.account": "Thông tin tài khoản cơ bản:",
+    "privacyPage.access.accountDesc": "Địa chỉ email của bạn để xác định tài khoản trong tiện ích bổ sung.",
+    "privacyPage.use.title": "Cách chúng tôi sử dụng dữ liệu",
+    "privacyPage.use.intro": "Chúng tôi sử dụng dữ liệu được truy cập chỉ để:",
+    "privacyPage.use.item1": "Tải tệp lên Google Drive™ của bạn thay mặt bạn",
+    "privacyPage.use.item2": "Đính kèm tham chiếu tệp vào các ô trong Google Sheets™",
+    "privacyPage.use.item3": "Hiển thị bản xem trước của các tệp đính kèm trong Google Sheets™",
+    "privacyPage.use.item4": "Cho phép quản lý tệp (xem, thay thế, tải xuống) trong giao diện tiện ích",
+    "privacyPage.storage.title": "Lưu trữ & Bảo mật dữ liệu",
+    "privacyPage.storage.p1": "Chúng tôi KHÔNG lưu trữ dữ liệu của bạn trên máy chủ bên ngoài.",
+    "privacyPage.storage.p1Cont": "Tất cả tệp của bạn vẫn nằm trong Google Drive™ và tất cả dữ liệu bảng tính vẫn nằm trong Google Sheets™. Menu Mega Tool hoạt động hoàn toàn trong hệ sinh thái Google Workspace™.",
+    "privacyPage.storage.p2": "Chúng tôi không duy trì cơ sở dữ liệu riêng về tệp người dùng hoặc dữ liệu cá nhân. Mọi xử lý diễn ra theo thời gian thực trong quá trình bạn sử dụng tiện ích.",
+    "privacyPage.sharing.title": "Chia sẻ dữ liệu",
+    "privacyPage.sharing.p1": "Chúng tôi KHÔNG bán, chia sẻ hoặc chuyển dữ liệu của bạn cho bên thứ ba.",
+    "privacyPage.sharing.p2": "Dữ liệu của bạn chỉ được truy cập để cung cấp chức năng cốt lõi của Menu Mega Tool. Chúng tôi không chia sẻ thông tin của bạn với các nhà quảng cáo, nhà môi giới dữ liệu hoặc bất kỳ tổ chức bên ngoài nào khác.",
+    "privacyPage.rights.title": "Quyền của bạn",
+    "privacyPage.rights.intro": "Bạn có thể thu hồi quyền truy cập của Menu Mega Tool vào dữ liệu của mình bất kỳ lúc nào bằng cách:",
+    "privacyPage.rights.item1": "Gỡ cài đặt tiện ích bổ sung từ Google Sheets™",
+    "privacyPage.rights.item2": "Thu hồi quyền truy cập thông qua cài đặt bảo mật Tài khoản Google",
+    "privacyPage.rights.outro": "Vì chúng tôi không lưu trữ dữ liệu bên ngoài, việc thu hồi quyền truy cập sẽ ngay lập tức dừng tất cả xử lý dữ liệu.",
+    "privacyPage.changes.title": "Thay đổi Chính sách",
+    "privacyPage.changes.p1": "Chúng tôi có thể cập nhật Chính sách Quyền riêng tư này theo thời gian. Chúng tôi sẽ thông báo cho người dùng về bất kỳ thay đổi quan trọng nào bằng cách cập nhật ngày \"Cập nhật lần cuối\" ở đầu trang này.",
+    "privacyPage.contact.title": "Liên hệ",
+    "privacyPage.contact.p1": "Nếu bạn có bất kỳ câu hỏi nào về Chính sách Quyền riêng tư này hoặc các thực hành dữ liệu của chúng tôi, vui lòng liên hệ chúng tôi tại:",
+
+    // Terms Page
+    "termsPage.title": "Điều khoản Dịch vụ",
+    "termsPage.lastUpdated": "Cập nhật lần cuối:",
+    "termsPage.acceptance.title": "1. Chấp nhận Điều khoản",
+    "termsPage.acceptance.p1": "Bằng cách cài đặt hoặc sử dụng Menu Mega Tool (\"Tiện ích bổ sung\"), bạn đồng ý bị ràng buộc bởi các Điều khoản Dịch vụ này (\"Điều khoản\"). Nếu bạn không đồng ý với các Điều khoản này, không sử dụng Tiện ích bổ sung.",
+    "termsPage.description.title": "2. Mô tả Dịch vụ",
+    "termsPage.description.p1": "Menu Mega Tool là tiện ích bổ sung Google Workspace™ cho phép người dùng tải lên, đính kèm, xem trước và quản lý tệp trực tiếp trong Google Sheets™, sử dụng Google Drive™ để lưu trữ tệp. Tiện ích hoạt động hoàn toàn trong hệ sinh thái Google Workspace™.",
+    "termsPage.acceptable.title": "3. Sử dụng chấp nhận được",
+    "termsPage.acceptable.intro": "Bạn đồng ý sử dụng Menu Mega Tool chỉ cho các mục đích hợp pháp và phù hợp với các Điều khoản này. Bạn đồng ý KHÔNG:",
+    "termsPage.acceptable.item1": "Sử dụng Tiện ích cho bất kỳ mục đích bất hợp pháp hoặc trái phép nào",
+    "termsPage.acceptable.item2": "Cố gắng dịch ngược, giải mã hoặc tháo rời Tiện ích",
+    "termsPage.acceptable.item3": "Sử dụng Tiện ích để lưu trữ hoặc truyền mã hoặc tệp độc hại",
+    "termsPage.acceptable.item4": "Can thiệp hoặc làm gián đoạn tính toàn vẹn hoặc hiệu suất của Tiện ích",
+    "termsPage.acceptable.item5": "Cố gắng truy cập trái phép vào bất kỳ hệ thống hoặc mạng nào",
+    "termsPage.acceptable.item6": "Sử dụng các tập lệnh hoặc bot tự động để truy cập hoặc tương tác với Tiện ích",
+    "termsPage.acceptable.item7": "Vi phạm Điều khoản Dịch vụ của Google hoặc chính sách Google Workspace™",
+    "termsPage.responsibilities.title": "4. Trách nhiệm Người dùng",
+    "termsPage.responsibilities.intro": "Bạn chịu trách nhiệm về:",
+    "termsPage.responsibilities.item1": "Duy trì bảo mật Tài khoản Google của bạn",
+    "termsPage.responsibilities.item2": "Tất cả hoạt động diễn ra dưới tài khoản của bạn",
+    "termsPage.responsibilities.item3": "Đảm bảo bạn có quyền tải lên và chia sẻ bất kỳ tệp nào thông qua Tiện ích",
+    "termsPage.responsibilities.item4": "Tuân thủ tất cả luật và quy định hiện hành",
+    "termsPage.ip.title": "5. Sở hữu Trí tuệ",
+    "termsPage.ip.p1": "Tiện ích, bao gồm mã, thiết kế và chức năng, thuộc sở hữu của Menu Mega Tool và được bảo vệ bởi luật sở hữu trí tuệ hiện hành. Bạn được cấp giấy phép giới hạn, không độc quyền, không thể chuyển nhượng để sử dụng Tiện ích theo các Điều khoản này.",
+    "termsPage.warranty.title": "6. Từ chối Bảo hành",
+    "termsPage.warranty.intro": "TIỆN ÍCH ĐƯỢC CUNG CẤP \"NGUYÊN TRẠNG\" VÀ \"KHẢ DỤNG\" KHÔNG CÓ BẢO HÀNH DƯỚI BẤT KỲ HÌNH THỨC NÀO, DÙ RÕ RÀNG HAY NGỤ Ý, BAO GỒM NHƯNG KHÔNG GIỚI HẠN Ở:",
+    "termsPage.warranty.item1": "Bảo hành ngụ ý về khả năng tiếp thị",
+    "termsPage.warranty.item2": "Phù hợp cho một mục đích cụ thể",
+    "termsPage.warranty.item3": "Không vi phạm",
+    "termsPage.warranty.item4": "Độ chính xác, độ tin cậy hoặc tính hoàn chỉnh của nội dung",
+    "termsPage.warranty.outro": "Chúng tôi không đảm bảo Tiện ích sẽ không bị gián đoạn, không có lỗi hoặc không có vi-rút hoặc các thành phần có hại khác.",
+    "termsPage.liability.title": "7. Giới hạn Trách nhiệm",
+    "termsPage.liability.p1": "TRONG PHẠM VI TỐI ĐA ĐƯỢC PHÁP LUẬT CHO PHÉP, MENU MEGA TOOL SẼ KHÔNG CHỊU TRÁCH NHIỆM CHO BẤT KỲ THIỆT HẠI GIÁN TIẾP, NGẪU NHIÊN, ĐẶC BIỆT, HỆ QUẢ HOẶC TRỪNG PHẠT, HOẶC BẤT KỲ MẤT LỢI NHUẬN, DỮ LIỆU, SỬ DỤNG HOẶC UY TÍN NÀO, PHÁT SINH TỪ HOẶC LIÊN QUAN ĐẾN VIỆC SỬ DỤNG TIỆN ÍCH CỦA BẠN.",
+    "termsPage.termination.title": "8. Chấm dứt",
+    "termsPage.termination.intro": "Chúng tôi bảo lưu quyền chấm dứt hoặc đình chỉ quyền truy cập của bạn vào Tiện ích ngay lập tức, không cần thông báo trước hoặc chịu trách nhiệm, vì bất kỳ lý do nào, bao gồm nhưng không giới hạn ở:",
+    "termsPage.termination.item1": "Vi phạm các Điều khoản này",
+    "termsPage.termination.item2": "Vi phạm luật hiện hành",
+    "termsPage.termination.item3": "Hành vi mà chúng tôi xác định là có hại cho người dùng khác hoặc Tiện ích",
+    "termsPage.termination.item4": "Lạm dụng dịch vụ hoặc các tính năng của nó",
+    "termsPage.termination.outro": "Khi chấm dứt, quyền sử dụng Tiện ích của bạn sẽ ngay lập tức chấm dứt.",
+    "termsPage.changes.title": "9. Thay đổi Điều khoản",
+    "termsPage.changes.p1": "Chúng tôi bảo lưu quyền sửa đổi các Điều khoản này bất kỳ lúc nào. Các thay đổi sẽ có hiệu lực ngay khi đăng. Việc bạn tiếp tục sử dụng Tiện ích sau bất kỳ thay đổi nào cho thấy bạn chấp nhận các Điều khoản đã sửa đổi.",
+    "termsPage.law.title": "10. Luật Điều chỉnh",
+    "termsPage.law.p1": "Các Điều khoản này sẽ được điều chỉnh và giải thích theo luật hiện hành, không xem xét các nguyên tắc xung đột pháp luật. Mọi tranh chấp phát sinh từ các Điều khoản này hoặc việc sử dụng Tiện ích sẽ được giải quyết thông qua thương lượng thiện chí giữa các bên.",
+    "termsPage.contact.title": "11. Liên hệ",
+    "termsPage.contact.p1": "Nếu bạn có bất kỳ câu hỏi nào về các Điều khoản này, vui lòng liên hệ chúng tôi tại:",
+
+    // Support Page
+    "supportPage.title": "Hỗ trợ",
+    "supportPage.subtitle": "Cần trợ giúp với Menu Mega Tool? Chúng tôi sẵn sàng hỗ trợ bạn.",
+    "supportPage.contact.title": "Liên hệ với chúng tôi",
+    "supportPage.email.title": "Hỗ trợ qua Email",
+    "supportPage.email.desc": "Gửi email cho chúng tôi và chúng tôi sẽ phản hồi trong vòng 24-48 giờ.",
+    "supportPage.report.title": "Báo cáo sự cố",
+    "supportPage.report.desc": "Phát hiện lỗi hoặc gặp vấn đề kỹ thuật? Hãy cho chúng tôi biết.",
+    "supportPage.report.link": "Báo cáo lỗi",
+    "supportPage.howTo.title": "Cách nhận trợ giúp",
+    "supportPage.howTo.step1.title": "Kiểm tra FAQ",
+    "supportPage.howTo.step1.desc": "Nhiều câu hỏi thường gặp được trả lời trong phần FAQ bên dưới.",
+    "supportPage.howTo.step2.title": "Mô tả vấn đề rõ ràng",
+    "supportPage.howTo.step2.desc": "Bao gồm chi tiết như bạn đang cố gắng làm gì, thông báo lỗi và trình duyệt/thiết bị của bạn.",
+    "supportPage.howTo.step3.title": "Liên hệ qua email",
+    "supportPage.howTo.step3.desc": "Gửi câu hỏi hoặc vấn đề đến support@menumegatool.com và chúng tôi sẽ hỗ trợ bạn nhanh chóng.",
+    "supportPage.faq.title": "Câu hỏi thường gặp",
+    "supportPage.faq.q1": "Làm thế nào để cài đặt Menu Mega Tool?",
+    "supportPage.faq.a1": "Bạn có thể cài đặt Menu Mega Tool từ Google Workspace™ Marketplace. Chỉ cần tìm 'Menu Mega Tool' trong marketplace, nhấp 'Cài đặt' và làm theo các hướng dẫn ủy quyền. Sau khi cài đặt, bạn có thể truy cập từ menu 'Tiện ích mở rộng' trong Google Sheets™.",
+    "supportPage.faq.q2": "Tôi có thể tải lên và xem trước những loại tệp nào?",
+    "supportPage.faq.a2": "Menu Mega Tool hỗ trợ nhiều loại tệp bao gồm hình ảnh (JPG, PNG, GIF, WebP), tài liệu (PDF, DOC, DOCX), bảng tính, bài thuyết trình và nhiều hơn nữa. Chức năng xem trước có sẵn cho hầu hết các định dạng tệp phổ biến. Tất cả tệp được lưu trữ trong Google Drive™ của bạn.",
+    "supportPage.faq.q3": "Dữ liệu của tôi có an toàn không?",
+    "supportPage.faq.a3": "Có, dữ liệu của bạn hoàn toàn an toàn. Menu Mega Tool không lưu trữ bất kỳ tệp hoặc dữ liệu nào trên máy chủ bên ngoài. Tất cả tệp vẫn nằm trong Google Drive™ và tất cả dữ liệu bảng tính vẫn nằm trong Google Sheets™. Chúng tôi chỉ truy cập các tệp và ô cụ thể mà bạn chọn làm việc.",
+    "supportPage.faq.q4": "Tôi có thể sử dụng Menu Mega Tool với bảng tính được chia sẻ không?",
+    "supportPage.faq.a4": "Có, Menu Mega Tool hoạt động với các bảng tính được chia sẻ. Mỗi cộng tác viên muốn sử dụng các tính năng tiện ích sẽ cần cài đặt riêng. Quyền truy cập tệp tuân theo cài đặt chia sẻ Google Drive™ hiện có của bạn.",
+    "supportPage.faq.q5": "Làm thế nào để gỡ cài đặt Menu Mega Tool?",
+    "supportPage.faq.a5": "Để gỡ cài đặt, vào Google Sheets™, nhấp 'Tiện ích mở rộng' > 'Tiện ích bổ sung' > 'Quản lý tiện ích bổ sung', tìm Menu Mega Tool, nhấp menu ba chấm và chọn 'Gỡ cài đặt'. Bạn cũng có thể thu hồi quyền truy cập từ cài đặt bảo mật Tài khoản Google.",
+    "supportPage.faq.q6": "Có giới hạn số lượng tệp tôi có thể đính kèm không?",
+    "supportPage.faq.a6": "Menu Mega Tool không áp đặt giới hạn về số lượng tệp đính kèm. Tuy nhiên, dung lượng lưu trữ Google Drive™ của bạn áp dụng cho tất cả tệp đã tải lên. Mỗi tệp được lưu trữ trong Drive™ của bạn, vì vậy hãy đảm bảo bạn có đủ dung lượng lưu trữ.",
+  },
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>("en");
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+};

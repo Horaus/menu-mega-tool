@@ -1,22 +1,25 @@
 import { motion } from "framer-motion";
 import { Shield, Lock, Eye } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const DataPrivacySection = () => {
+  const { t } = useLanguage();
+
   const privacyPoints = [
     {
       icon: Shield,
-      title: "Your data stays yours",
-      description: "All files remain in your Google Drive™. We never store your data on external servers.",
+      title: t("privacy.yours.title"),
+      description: t("privacy.yours.desc"),
     },
     {
       icon: Lock,
-      title: "No data selling",
-      description: "We never sell, share, or transfer your data to third parties. Your privacy is paramount.",
+      title: t("privacy.noSell.title"),
+      description: t("privacy.noSell.desc"),
     },
     {
       icon: Eye,
-      title: "Minimal access",
-      description: "We only access the specific files and sheets you choose to work with. Nothing more.",
+      title: t("privacy.minimal.title"),
+      description: t("privacy.minimal.desc"),
     },
   ];
 
@@ -31,11 +34,10 @@ const DataPrivacySection = () => {
           className="text-center max-w-2xl mx-auto mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Data usage & privacy
+            {t("privacy.title")}
           </h2>
           <p className="text-muted-foreground">
-            Menu Mega Tool is built with privacy at its core. We follow Google's API 
-            Services User Data Policy and only access what's necessary.
+            {t("privacy.desc")}
           </p>
         </motion.div>
 

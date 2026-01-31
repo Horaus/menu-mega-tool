@@ -1,30 +1,33 @@
 import { motion } from "framer-motion";
 import { Upload, Eye, FolderOpen, Zap } from "lucide-react";
-
-const features = [
-  {
-    icon: Upload,
-    title: "Instant upload",
-    description: "Upload files directly from your computer to Google Drive™ and attach them to any cell in Google Sheets™.",
-  },
-  {
-    icon: Eye,
-    title: "Sheets preview",
-    description: "Preview attached files without leaving Google Sheets™. View images, PDFs, and documents inline.",
-  },
-  {
-    icon: FolderOpen,
-    title: "Drive managed",
-    description: "All your files stay organized in your Google Drive™. No external storage, no data transfers.",
-  },
-  {
-    icon: Zap,
-    title: "Easy workflow",
-    description: "Simple, intuitive interface that integrates seamlessly with your existing Google Workspace™ workflow.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FeaturesSection = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: Upload,
+      title: t("features.upload.title"),
+      description: t("features.upload.desc"),
+    },
+    {
+      icon: Eye,
+      title: t("features.preview.title"),
+      description: t("features.preview.desc"),
+    },
+    {
+      icon: FolderOpen,
+      title: t("features.drive.title"),
+      description: t("features.drive.desc"),
+    },
+    {
+      icon: Zap,
+      title: t("features.workflow.title"),
+      description: t("features.workflow.desc"),
+    },
+  ];
+
   return (
     <section id="features" className="py-20 bg-secondary/30">
       <div className="container mx-auto px-6">

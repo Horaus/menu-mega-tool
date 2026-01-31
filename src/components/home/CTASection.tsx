@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-workspace.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CTASection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
@@ -20,10 +23,10 @@ const CTASection = () => {
           <div className="absolute inset-0 bg-foreground/70 flex items-center justify-center">
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Try Menu Mega Tool.
+                {t("cta.title")}
               </h2>
               <p className="text-primary-foreground/80 mb-8">
-                Upload your first file.
+                {t("cta.subtitle")}
               </p>
               <motion.a
                 href="https://workspace.google.com/marketplace"
@@ -33,7 +36,7 @@ const CTASection = () => {
                 whileTap={{ scale: 0.98 }}
                 className="inline-block bg-card text-foreground px-8 py-4 rounded-full font-medium hover:opacity-90 transition-opacity"
               >
-                Get now
+                {t("cta.button")}
               </motion.a>
             </div>
           </div>

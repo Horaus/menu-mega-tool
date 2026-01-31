@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-workspace.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="hero-gradient py-20 md:py-32">
       <div className="container mx-auto px-6">
@@ -12,10 +15,10 @@ const HeroSection = () => {
           className="text-center max-w-4xl mx-auto"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Menu Mega Tool
+            {t("hero.title")}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-10">
-            Google Sheets™ file uploads, previews, and Drive™ sync.
+            {t("hero.subtitle")}
           </p>
           <motion.a
             href="https://workspace.google.com/marketplace"
@@ -25,7 +28,7 @@ const HeroSection = () => {
             whileTap={{ scale: 0.98 }}
             className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-full font-medium text-lg hover:opacity-90 transition-opacity"
           >
-            Start Now
+            {t("hero.cta")}
           </motion.a>
         </motion.div>
 
