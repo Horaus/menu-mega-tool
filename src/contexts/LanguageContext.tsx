@@ -52,8 +52,8 @@ const translations: Record<Language, Record<string, string>> = {
     "privacy.minimal.desc": "We only access the specific files and sheets you choose to work with. Nothing more.",
 
     // CTA
-    "cta.title": "Try Menu Mega Tool™.",
-    "cta.subtitle": "Upload your first file.",
+    "cta.title": "Try Menu Mega Tool™",
+    "cta.subtitle": "Upload your first file",
     "cta.button": "Get now",
 
     // Footer
@@ -228,8 +228,8 @@ const translations: Record<Language, Record<string, string>> = {
     "privacy.minimal.desc": "Chúng tôi chỉ truy cập các tệp và bảng tính cụ thể mà bạn chọn làm việc. Không gì khác.",
 
     // CTA
-    "cta.title": "Thử Menu Mega Tool™.",
-    "cta.subtitle": "Tải lên tệp đầu tiên của bạn.",
+    "cta.title": "Thử Menu Mega Tool™",
+    "cta.subtitle": "Tải lên tệp đầu tiên của bạn",
     "cta.button": "Nhận ngay",
 
     // Footer

@@ -23,25 +23,25 @@ const Footer = () => {
 
   return (
     <footer className="bg-background border-t border-border">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* Logo Column */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="Menu Mega Tool" className="h-8 w-8" />
-              <span className="font-semibold text-foreground">Menu Mega Tool™</span>
+              <img src={logo} alt="Menu Mega Tool" className="h-7 w-7 md:h-8 md:w-8" />
+              <span className="font-semibold text-foreground text-sm md:text-base">Menu Mega Tool™</span>
             </Link>
           </div>
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">{t("footer.product")}</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">{t("footer.product")}</h4>
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-xs md:text-sm"
                   >
                     {link.name}
                   </Link>
@@ -52,13 +52,13 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">{t("footer.legal")}</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">{t("footer.legal")}</h4>
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-xs md:text-sm"
                   >
                     {link.name}
                   </Link>
@@ -69,13 +69,13 @@ const Footer = () => {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">{t("footer.support")}</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">{t("footer.support")}</h4>
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-xs md:text-sm"
                   >
                     {link.name}
                   </Link>
@@ -86,14 +86,14 @@ const Footer = () => {
         </div>
 
         {/* Google Trademark Disclaimer */}
-        <div className="border-t border-border pt-8">
-          <p className="text-xs text-muted-foreground text-center max-w-2xl mx-auto">
+        <div className="border-t border-border pt-6 md:pt-8">
+          <p className="text-[10px] md:text-xs text-muted-foreground text-center max-w-2xl mx-auto">
             {t("footer.trademark")}
             <br />
             {t("footer.disclaimer")}
           </p>
-          <p className="text-xs text-muted-foreground text-center mt-4">
-            © {new Date().getFullYear()} Menu Mega Tool™. {t("footer.rights")}
+          <p className="text-[10px] md:text-xs text-muted-foreground text-center mt-3 md:mt-4">
+            © {new Date().getFullYear()} Menu Mega Tool™ {t("footer.rights")}
           </p>
         </div>
       </div>
