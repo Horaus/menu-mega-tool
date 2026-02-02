@@ -100,8 +100,12 @@ const Privacy = () => {
                 <h2 className="text-2xl font-semibold text-foreground mb-4">{t("privacyPage.contact.title")}</h2>
                 <p className="text-muted-foreground">
                   {t("privacyPage.contact.p1")}{" "}
-                  <a href="mailto:support@menumegatool.com" className="text-foreground underline">
-                    support@menumegatool.com
+                  <a href="mailto:support#@menumegatool.com" className="text-foreground underline">
+                    support#@menumegatool.com
+                  </a>
+                  <br />
+                  <a href="mailto:horaus.minh@gmail.com" className="text-foreground underline">
+                    horaus.minh@gmail.com
                   </a>
                 </p>
               </section>

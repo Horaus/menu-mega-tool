@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <img src={logo} alt="Menu Mega Tool" className="h-8 w-8" />
-              <span className="font-semibold text-foreground">Menu Mega Tool</span>
+              <span className="font-semibold text-foreground">Menu Mega Tool™</span>
             </Link>
           </div>
 
@@ -93,7 +93,7 @@ const Footer = () => {
             {t("footer.disclaimer")}
           </p>
           <p className="text-xs text-muted-foreground text-center mt-4">
-            © {new Date().getFullYear()} Menu Mega Tool. {t("footer.rights")}
+            © {new Date().getFullYear()} Menu Mega Tool™. {t("footer.rights")}
           </p>
         </div>
       </div>
