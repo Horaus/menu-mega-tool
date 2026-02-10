@@ -28,7 +28,8 @@ const CTASection = () => {
               <p className="text-sm md:text-base text-primary-foreground/80 mb-6 md:mb-8">
                 {t("cta.subtitle")}
               </p>
-              <motion.a
+              {/* CTA button hidden until Google Workspace link is ready */}
+              {/* <motion.a
                 href="https://workspace.google.com/marketplace"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -37,7 +38,7 @@ const CTASection = () => {
                 className="inline-block bg-card text-foreground px-6 py-3 md:px-8 md:py-4 rounded-full font-medium text-sm md:text-base hover:opacity-90 transition-opacity"
               >
                 {t("cta.button")}
-              </motion.a>
+              </motion.a> */}
             </div>
           </div>
         </motion.div>

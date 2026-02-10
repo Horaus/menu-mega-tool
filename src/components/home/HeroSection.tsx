@@ -20,7 +20,8 @@ const HeroSection = () => {
           <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 md:mb-10 px-2">
             {t("hero.subtitle")}
           </p>
-          <motion.a
+          {/* CTA button hidden until Google Workspace link is ready */}
+          {/* <motion.a
             href="https://workspace.google.com/marketplace"
             target="_blank"
             rel="noopener noreferrer"
@@ -29,7 +30,7 @@ const HeroSection = () => {
             className="inline-block bg-primary text-primary-foreground px-6 py-3 md:px-8 md:py-4 rounded-full font-medium text-base md:text-lg hover:opacity-90 transition-opacity"
           >
             {t("hero.cta")}
-          </motion.a>
+          </motion.a> */}
         </motion.div>
 
         <motion.div
