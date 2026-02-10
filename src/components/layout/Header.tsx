@@ -59,14 +59,7 @@ const Header = () => {
           {/* Right side: Language Switcher + CTA (Desktop) */}
           <div className="hidden md:flex items-center gap-2">
             <LanguageSwitcher />
-            <Link
-              to="https://workspace.google.com/marketplace"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              {t("nav.getStarted")}
-            </Link>
+            {/* Get Started button hidden until Google Workspace link is ready */}
           </div>
 
           {/* Mobile: Language + Hamburger */}
@@ -97,17 +90,7 @@ const Header = () => {
                       {t(`nav.${item.key}`)}
                     </Link>
                   ))}
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <Link
-                      to="https://workspace.google.com/marketplace"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block w-full text-center bg-primary text-primary-foreground px-5 py-3 rounded-full text-base font-medium hover:opacity-90 transition-opacity"
-                    >
-                      {t("nav.getStarted")}
-                    </Link>
-                  </div>
+                  {/* Get Started button hidden until Google Workspace link is ready */}
                 </nav>
               </SheetContent>
             </Sheet>
