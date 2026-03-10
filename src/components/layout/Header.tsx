@@ -14,8 +14,10 @@ const Header = () => {
 
   const navItems = [
     { key: "home", path: "/" },
-    { key: "features", path: "/#features" },
+    { key: "features", path: "/features" },
     { key: "support", path: "/support" },
+    { key: "privacy", path: "/privacy" },
+    { key: "terms", path: "/terms" },
   ];
 
   const isActive = (path: string) => {
@@ -35,7 +37,7 @@ const Header = () => {
           {/* Logo + Navigation (Desktop) */}
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-              <img src={logo} alt="Menu Mega Tool" className="h-7 w-7 md:h-8 md:w-8" />
+              <img src={logo} alt="Menu Mega Tool™" className="h-7 w-7 md:h-8 md:w-8" />
             </Link>
 
             {/* Desktop Navigation - next to logo */}
@@ -44,11 +46,10 @@ const Header = () => {
                 <Link
                   key={item.key}
                   to={item.path}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    isActive(item.path)
-                      ? "bg-secondary text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  }`}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive(item.path)
+                    ? "bg-secondary text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    }`}
                 >
                   {t(`nav.${item.key}`)}
                 </Link>
@@ -81,11 +82,10 @@ const Header = () => {
                       key={item.key}
                       to={item.path}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
-                        isActive(item.path)
-                          ? "bg-secondary text-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                      }`}
+                      className={`px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${isActive(item.path)
+                        ? "bg-secondary text-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                        }`}
                     >
                       {t(`nav.${item.key}`)}
                     </Link>

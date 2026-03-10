@@ -7,18 +7,18 @@ const HowItWorksSection = () => {
   const { t } = useLanguage();
 
   const steps = [
-    { 
-      key: "step1", 
+    {
+      key: "step1",
       icon: MousePointerClick,
       iconColor: "text-blue-600"
     },
-    { 
-      key: "step2", 
+    {
+      key: "step2",
       icon: Upload,
       iconColor: "text-green-600"
     },
-    { 
-      key: "step3", 
+    {
+      key: "step3",
       icon: Eye,
       iconColor: "text-purple-600"
     },
@@ -37,7 +37,7 @@ const HowItWorksSection = () => {
           >
             <img
               src={heroImage}
-              alt="Menu Mega Tool workflow"
+              alt="Menu Mega Tool™ workflow"
               className="w-full h-auto"
             />
           </motion.div>
@@ -66,18 +66,18 @@ const HowItWorksSection = () => {
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                   viewport={{ once: true }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <motion.div
-                      animate={{ 
+                      animate={{
                         y: [0, -2, 0],
                       }}
-                      transition={{ 
-                        duration: 2, 
-                        repeat: Infinity, 
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
                         ease: "easeInOut",
                         delay: index * 0.3
                       }}

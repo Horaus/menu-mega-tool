@@ -64,13 +64,6 @@ const Support = () => {
                     {t("supportPage.email.desc")}
                   </p>
                   <a
-                    href="mailto:support#@menumegatool.com"
-                    className="text-foreground font-medium underline"
-                  >
-                    support#@menumegatool.com
-                  </a>
-                  <br />
-                  <a
                     href="mailto:horaus.minh@gmail.com"
                     className="text-foreground font-medium underline"
                   >
@@ -85,7 +78,7 @@ const Support = () => {
                     {t("supportPage.report.desc")}
                   </p>
                   <a
-                    href="mailto:support#@menumegatool.com?subject=Bug Report"
+                    href="mailto:horaus.minh@gmail.com?subject=Bug Report"
                     className="text-foreground font-medium underline"
                   >
                     {t("supportPage.report.link")}

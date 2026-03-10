@@ -17,7 +17,7 @@ const CTASection = () => {
         >
           <img
             src={heroImage}
-            alt="Get Menu Mega Tool"
+            alt="Get Menu Mega Tool™"
             className="w-full h-[280px] md:h-[400px] object-cover"
           />
           <div className="absolute inset-0 bg-foreground/70 flex items-center justify-center">

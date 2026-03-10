@@ -8,7 +8,7 @@ const Footer = () => {
   const footerLinks = {
     product: [
       { name: t("footer.overview"), path: "/" },
-      { name: t("footer.features"), path: "/#features" },
+      { name: t("footer.features"), path: "/features" },
     ],
     legal: [
       { name: t("footer.terms"), path: "/terms" },
@@ -28,7 +28,7 @@ const Footer = () => {
           {/* Logo Column */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="Menu Mega Tool" className="h-7 w-7 md:h-8 md:w-8" />
+              <img src={logo} alt="Menu Mega Tool™" className="h-7 w-7 md:h-8 md:w-8" />
               <span className="font-semibold text-foreground text-sm md:text-base">Menu Mega Tool™</span>
             </Link>
           </div>

@@ -42,7 +42,7 @@ const HeroSection = () => {
           <div className="rounded-xl md:rounded-2xl overflow-hidden card-shadow">
             <img
               src={heroImage}
-              alt="Menu Mega Tool in action with Google Sheets"
+              alt="Menu Mega Tool™ in action with Google Sheets™"
               className="w-full h-auto"
             />
           </div>
